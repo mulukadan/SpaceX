@@ -1,15 +1,9 @@
 package com.example.spacex.ADAPTERS;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,29 +13,26 @@ import com.example.spacex.MODELS.Launch;
 import com.example.spacex.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.Collections;
 import java.util.List;
 
-public class LauchAdapter extends RecyclerView.Adapter<LauchAdapter.myViewHolder> {
+public class LaunchAdapter extends RecyclerView.Adapter<LaunchAdapter.myViewHolder> {
 
-    private LayoutInflater inflator;
-    List<Launch> data = Collections.emptyList();
+    private LayoutInflater inflater;
+    List<Launch> data;
     Context mContext;
 
     OnItemClick onItemClick;
 
-    public LauchAdapter(Context context, List<Launch> data) {
-        inflator = LayoutInflater.from(context);
+    public LaunchAdapter(Context context, List<Launch> data) {
+        inflater = LayoutInflater.from(context);
         mContext = context;
         this.data = data;
     }
 
     @Override
     public myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflator.inflate(R.layout.launch_view, parent, false);
-        myViewHolder holder = new myViewHolder(view);
-
-        return holder;
+        View view = inflater.inflate(R.layout.launch_view, parent, false);
+        return new myViewHolder(view);
     }
 
     @Override
@@ -50,8 +41,7 @@ public class LauchAdapter extends RecyclerView.Adapter<LauchAdapter.myViewHolder
         holder.missionNameTV.setText(current.getMission());
         holder.days.setText(current.getDaysBetween());
         holder.dateAtTime.setText(current.getDate() + " at " + current.getTime());
-        holder.roketName.setText(current.getRocketName() + "/ " + current.getRocketType());
-//        Picasso.get().load(current.getImgUrl()).placeholder(R.drawable.image_search_24).into(holder.imageIV);
+        holder.rocketName.setText(current.getRocketName() + "/ " + current.getRocketType());
         Picasso.get().load(current.getImgUrl()).fit().centerCrop()
                 .placeholder(R.drawable.image_search_24)
                 .error(R.drawable.red_button_background)
@@ -63,11 +53,10 @@ public class LauchAdapter extends RecyclerView.Adapter<LauchAdapter.myViewHolder
         }
 
         if (Integer.parseInt(current.getDaysBetween()) < 0) {
-            holder.daysLable.setText("Days Since:");
+            holder.daysLabel.setText("Days Since:");
         } else {
-            holder.daysLable.setText("Days From Now:");
+            holder.daysLabel.setText("Days From Now:");
         }
-
     }
 
     @Override
@@ -79,46 +68,29 @@ public class LauchAdapter extends RecyclerView.Adapter<LauchAdapter.myViewHolder
 
         TextView missionNameTV;
         TextView dateAtTime;
-        TextView roketName;
-        TextView daysLable, days;
+        TextView rocketName;
+        TextView daysLabel, days;
         ImageView imageIV, statusIV;
-
-
 
         public myViewHolder(final View itemView) {
             super(itemView);
             missionNameTV = itemView.findViewById(R.id.missionNameTV);
             dateAtTime = itemView.findViewById(R.id.dateAtTime);
-            roketName = itemView.findViewById(R.id.roketName);
+            rocketName = itemView.findViewById(R.id.roketName);
             days = itemView.findViewById(R.id.days);
-            daysLable = itemView.findViewById(R.id.daysLable);
+            daysLabel = itemView.findViewById(R.id.daysLable);
             imageIV = itemView.findViewById(R.id.imageIV);
             statusIV = itemView.findViewById(R.id.statusIV);
-
-
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
-                      Launch launch = data.get(pos);
+                    Launch launch = data.get(pos);
 
                     onItemClick.getPosition(launch);
-
-
-//                        if(transaction.getToken()!= null) {
-//                            Gson gson = new Gson();
-//                            String voucherObjectAsAString = gson.toJson(transaction);
-//                            Intent i = new Intent(itemView.getContext(), TransactionDetailsActivity.class);
-//                            i.putExtra("voucherObjectAsAString", voucherObjectAsAString);
-//                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            mContext.startActivity(i);
-//                        }
-
                 }
-//                    Toast.makeText(itemView.getContext(), "", Toast.LENGTH_SHORT).show();
             });
         }
-
 
     }
 
@@ -127,6 +99,6 @@ public class LauchAdapter extends RecyclerView.Adapter<LauchAdapter.myViewHolder
     }
 
     public interface OnItemClick {
-        void getPosition(Launch clickedlaunch);
+        void getPosition(Launch launch);
     }
 }

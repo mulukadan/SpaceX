@@ -1,6 +1,5 @@
 package com.example.spacex;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.spacex.ADAPTERS.LauchAdapter;
+import com.example.spacex.ADAPTERS.LaunchAdapter;
 import com.example.spacex.API.Client;
 import com.example.spacex.API.Endpoints;
 import com.example.spacex.API.Service;
@@ -32,12 +30,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -61,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton radio1, radio2, radio11, radio22, radioFilter;
     private RadioGroup radio_group;
 
-    private LauchAdapter launchAdapter;
+    private LaunchAdapter launchAdapter;
 
     private List<Launch> Alllaunches = new ArrayList<>();
     private List<Launch> displayingLaunches = new ArrayList<>();
@@ -165,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         launchesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         launchesRV.smoothScrollToPosition(0);
 
-        launchAdapter = new LauchAdapter(getApplicationContext(), displayingLaunches);
+        launchAdapter = new LaunchAdapter(getApplicationContext(), displayingLaunches);
         launchesRV.setAdapter(launchAdapter);
         launchAdapter.setOnItemClick(clickedlaunch -> showOpenOptionsDialog(clickedlaunch));
 
@@ -332,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public String dateFormat(String myDateObj, String getWhat) {
         ZonedDateTime result = ZonedDateTime.parse(myDateObj, DateTimeFormatter.ISO_DATE_TIME);
 
@@ -347,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (getWhat.equals("date")) {
             return formatter.format(localDate);
-        } else if (getWhat.equals("date")) {
+        } else if (getWhat.equals("time")) {
             return localTime.toString();
         } else {
             return String.valueOf(daysBetween);

@@ -11,11 +11,7 @@ import retrofit2.http.POST;
  */
 
 public interface Service {
-    //Post Request & Get Response AS String
-    @POST(" ")
-    Call<String>postRequest(@Body RequestBody Body);
-
-    //Get getRequestResponse AS String
+       //Get getRequestResponse AS String
     @GET(" ")
     Call<String> getRequestResponse();
 }

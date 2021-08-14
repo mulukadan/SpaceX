@@ -12,10 +12,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class Client {
-    static String username = "mulukadan";
-    static String api_key = "nnkLxSWOtXA2lKfOdLlWg6J7d8pJeCuirMTEJs4E9VrjHQhlGP";
-    static String sender = "SMARTLINK";
-
 
     static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(1, TimeUnit.MINUTES)
